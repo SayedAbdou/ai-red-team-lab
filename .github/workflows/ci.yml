@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install pyyaml
+
+      - name: Compile all Python
+        run: |
+          find harnesses -name "*.py" -print0 | xargs -0 -n1 python -m py_compile
+
+      - name: Validate YAML files
+        run: |
+          python - <<'EOF'
+          import pathlib, yaml
+          bad = []
+          for p in pathlib.Path(".").rglob("*.yaml"):
+              if ".github" in p.parts:
+                  continue
+              try:
+                  yaml.safe_load(p.read_text(encoding="utf-8"))
+              except Exception as e:
+                  bad.append((str(p), str(e)))
+          if bad:
+              for p, e in bad:
+                  print(f"INVALID YAML: {p}: {e}")
+              raise SystemExit(1)
+          print("All YAML files valid.")
+          EOF
+
+      - name: Fuzzer smoke test
+        run: |
+          cd harnesses/prompt-injection-fuzzer
+          python fuzzer.py --template templates/support-bot.json \
+                           --payloads payloads/direct.txt \
+                           --mutations unicode \
+                           --output /tmp/smoke.jsonl
+          test -s /tmp/smoke.jsonl
