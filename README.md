@@ -1,6 +1,6 @@
 # AI Red Team Lab
 
-> Methodology, harnesses, and workflows for adversarial testing of AI systems — by [aramx4](https://www.sayedabdou.com), AI Red Team Expert (São Paulo, Brazil).
+> Methodology, harnesses, and workflows for adversarial testing of AI systems - by [Sayed Abdou](https://www.sayedabdou.com), AI Red Team Expert (São Paulo, Brazil).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-green.svg)](harnesses/)
@@ -49,4 +49,4 @@ This repository is my public, portable proof of that work: the methodology I app
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Please attribute when reusing, and keep testing authorized.
+MIT - see [LICENSE](LICENSE). Please attribute when reusing, and keep testing authorized.
