@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Outputs (findings may contain sensitive data)
+/tmp/
+*.jsonl
+scenarios/synthetic/my-*.yaml
+reports/out/
+
+# Secrets & local config
+.env
+*.pem
+credentials/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
